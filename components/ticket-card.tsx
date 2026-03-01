@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { format } from 'date-fns';
 import {
   Train,
@@ -22,6 +23,7 @@ interface TicketCardProps {
   showActions?: boolean;
   onMarkSold?: (id: string) => void;
   onDelete?: (id: string) => void;
+  href?: string;
 }
 
 const CLASS_COLORS: Record<string, string> = {
@@ -41,12 +43,12 @@ const GENDER_LABEL: Record<string, string> = {
   T: 'Transgender',
 };
 
-export function TicketCard({ ticket, showActions, onMarkSold, onDelete }: TicketCardProps) {
+export function TicketCard({ ticket, showActions, onMarkSold, onDelete, href }: TicketCardProps) {
   const journeyDate = new Date(ticket.journeyDate + 'T00:00:00');
   const isPast = journeyDate < new Date();
 
-  return (
-    <Card className="overflow-hidden hover:shadow-md transition-shadow duration-200 border border-border/60">
+  const cardInner = (
+    <Card className="h-full overflow-hidden hover:shadow-md transition-shadow duration-200 border border-border/60">
       {/* Status bar */}
       <div
         className={`h-1 w-full ${
@@ -153,19 +155,9 @@ export function TicketCard({ ticket, showActions, onMarkSold, onDelete }: Ticket
                   {ticket.seller.name?.split(' ')[0]}
                 </span>
               </div>
-              {ticket.seller.mobile ? (
-                <a href={`tel:${ticket.seller.mobile}`}>
-                  <Button size="sm" className="h-7 text-xs px-3">
-                    <Phone className="h-3 w-3" />
-                    {ticket.seller.mobile}
-                  </Button>
-                </a>
-              ) : (
-                <Button size="sm" variant="outline" className="h-7 text-xs px-3" disabled>
-                  <Phone className="h-3 w-3" />
-                  Contact
-                </Button>
-              )}
+              <span className="text-[11px] text-muted-foreground hidden sm:inline">
+                Tap to view contact details
+              </span>
             </div>
           )}
         </div>
@@ -196,4 +188,14 @@ export function TicketCard({ ticket, showActions, onMarkSold, onDelete }: Ticket
       </CardContent>
     </Card>
   );
+
+  if (href && !showActions) {
+    return (
+      <Link href={href} className="block h-full">
+        {cardInner}
+      </Link>
+    );
+  }
+
+  return cardInner;
 }

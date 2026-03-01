@@ -211,7 +211,26 @@ export default function HomePage() {
             </div>
             <span className="font-semibold text-foreground">RailSwap</span>
           </div>
-          <p>© 2026 RailSwap. Not affiliated with Indian Railways or IRCTC.</p>
+          <div className="flex flex-col sm:flex-row items-center gap-3">
+            <p>© 2026 RailSwap. Not affiliated with Indian Railways or IRCTC.</p>
+            <div className="flex items-center gap-3 text-xs">
+              <button
+                type="button"
+                onClick={() => router.push('/privacy')}
+                className="underline-offset-2 hover:underline"
+              >
+                Privacy Policy
+              </button>
+              <span className="hidden sm:inline">•</span>
+              <button
+                type="button"
+                onClick={() => router.push('/terms')}
+                className="underline-offset-2 hover:underline"
+              >
+                Terms &amp; Conditions
+              </button>
+            </div>
+          </div>
         </div>
       </footer>
     </div>
