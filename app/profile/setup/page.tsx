@@ -55,7 +55,14 @@ export default function ProfileSetupPage() {
         mobileVisible: showToAll ? 'anyone' : 'buyer',
       });
 
-      await update({ isProfileComplete: true });
+      // Update NextAuth session so `session.user.isProfileComplete` matches the DB
+      await update({
+        ...(session ?? {}),
+        user: {
+          ...(session?.user ?? {}),
+          isProfileComplete: true,
+        },
+      });
       toast({ title: 'Profile saved!', description: 'Welcome to RailSwap.' });
       router.push('/');
     } catch (err: any) {

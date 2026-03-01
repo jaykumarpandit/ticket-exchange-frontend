@@ -58,6 +58,7 @@ type FormData = z.infer<typeof schema>;
 
 export default function AddTicketPage() {
   const { data: session, status } = useSession();
+  console.log('session', session);
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 

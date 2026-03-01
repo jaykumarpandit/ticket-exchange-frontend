@@ -12,7 +12,7 @@ export const authOptions: NextAuthOptions = {
     signIn: '/login',
   },
   callbacks: {
-    async jwt({ token, account }) {
+    async jwt({ token, account, trigger, session }) {
       // On first sign-in, exchange Google ID token for backend JWT
       if (account?.id_token) {
         try {
@@ -33,6 +33,14 @@ export const authOptions: NextAuthOptions = {
           }
         } catch (err) {
           console.error('Backend auth error:', err);
+        }
+      }
+
+      // When the client calls `session.update(...)`, propagate changes into the JWT
+      if (trigger === 'update' && session?.user) {
+        // Only update fields we care about
+        if (typeof session.user.isProfileComplete !== 'undefined') {
+          token.isProfileComplete = session.user.isProfileComplete;
         }
       }
       return token;
