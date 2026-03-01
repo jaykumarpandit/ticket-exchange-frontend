@@ -1,4 +1,4 @@
-// File: /Users/Personal_Projects/ticket-exchange/frontend/app/api/auth/[...nextauth]/route.ts
+// File: /Users/Personal_Projects/ticket-exchange/ticket-exchange-frontend/app/api/auth/[...nextauth]/route.ts
 import * as entry from '../../../../../../app/api/auth/[...nextauth]/route.js'
 import type { NextRequest } from 'next/server.js'
 

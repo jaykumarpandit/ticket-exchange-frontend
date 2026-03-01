@@ -1,8 +1,8 @@
-// File: /Users/Personal_Projects/ticket-exchange/frontend/app/tickets/page.tsx
-import * as entry from '../../../../app/tickets/page.jsx'
+// File: /Users/Personal_Projects/ticket-exchange/ticket-exchange-frontend/app/tickets/page.tsx
+import * as entry from '../../../../app/tickets/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
-type TEntry = typeof import('../../../../app/tickets/page.jsx')
+type TEntry = typeof import('../../../../app/tickets/page.js')
 
 type SegmentParams<T extends Object = any> = T extends Record<string, any>
   ? { [K in keyof T]: T[K] extends string ? string | string[] | undefined : never }
